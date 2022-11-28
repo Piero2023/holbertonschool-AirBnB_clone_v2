@@ -13,7 +13,7 @@ class City(BaseModel):
         __tablename__ = 'cities'
         name = Column(String(128), nullable=False)
         state_id = Column(String(60), ForeignKey('state.id'), nullable=False)
-        place = relationship("Place", backref="cities")
+        places = relationship("Place", backref="cities")
     else:
         state_id = ""
         name = ""
