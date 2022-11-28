@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from os import getenv
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, MetaData
 from models.base_model import Base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.user import User
