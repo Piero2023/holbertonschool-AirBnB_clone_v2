@@ -6,7 +6,6 @@ from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
 
-
 if models.storage_type == 'db':
     Base = declarative_base()
 else:
@@ -16,7 +15,7 @@ else:
 class BaseModel:
     """A base class for all hbnb models"""
 
-    if models.storage_type == 'db':
+    if models.storage_type == "db":
         id = Column(String(60), primary_key=True)
         created_at = Column(
             DateTime, default=datetime.utcnow(), nullable=False)
@@ -30,7 +29,6 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
-            storage.new(self)
         else:
             if (not kwargs.get("id", 0)):
                 self.id = str(uuid.uuid4())
@@ -44,6 +42,10 @@ class BaseModel:
                     kwargs["updated_at"])
             else:
                 self.updated_at = self.created_at
+            # kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
+            #                                          '%Y-%m-%dT%H:%M:%S.%f')
+            # kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
+            #                                          '%Y-%m-%dT%H:%M:%S.%f')
             if (kwargs.get("__class__", 0)):
                 del kwargs['__class__']
             self.__dict__.update(kwargs)
@@ -53,8 +55,7 @@ class BaseModel:
         items = self.__dict__.items()
         string = '_sa_instance_state'
         filter_dict = {k: v for k, v in items if (k != string)}
-        return ("[{}] ({}) {}".format(self.__class__.__name__, self.id,
-                                      filter_dict))
+        return ("[{}] ({}) {}".format(self.__class__.__name__, self.id, filter_dict))
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""
