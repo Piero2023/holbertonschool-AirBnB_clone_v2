@@ -33,7 +33,7 @@ if models.storage_type == 'db':
         latitude = Column(Float, nullable=True)
         longitude = Column(Float, nullable=True)
         # amenity_ids = Column()
-        # reviews = relationship("Review", backref="place")
+        reviews = relationship("Review", backref="place")
         # amenities = relationship("Amenity", secondary="place_amenity",
                                  # backref="place_amenities",
                                  # viewonly=False)
