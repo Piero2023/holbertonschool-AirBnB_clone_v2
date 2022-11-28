@@ -5,15 +5,15 @@ from sqlalchemy import Column, String, ForeignKey
 from models import storage_type
 from sqlalchemy.orm import relationship
 
-
-class City(BaseModel, Base):
-    """ The city class, contains state ID and name """
-
-    if storage_type == 'db':
+if storage_type == 'db':
+    class City(BaseModel, Base):
+        """ the city class, contains state id and name"""
         __tablename__ = 'cities'
         name = Column(String(128), nullable=False)
-        state_id = Column(String(60), ForeignKey('state.id'), nullable=False)
+        state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
         # places = relationship("Place", backref="cities")
-    else:
+else:
+    class City(BaseModel):
+        """ the city class, contains state id and name"""
         state_id = ""
         name = ""

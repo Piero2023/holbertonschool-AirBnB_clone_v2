@@ -11,7 +11,7 @@ from models.state import State
 from models.review import Review
 from models.amenity import Amenity
 
-classes = {"State": State, "City": City}
+classes = {"State": State, "City": City, "User": User}
 
 
 class DBStorage:
