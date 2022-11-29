@@ -4,18 +4,16 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
 from models.review import Review
-from models.amenity import Amenity
+#from models.amenity import Amenity
 import models
 
-'''if models.storage_type == 'db':
+if models.storage_type == 'db':
     place_amenity = Table('place_amenity', Base.metadata,
                           Column('place_id', String(60),
-                                 ForeignKey('places.id', onupdate='CASCADE',
-                                 ondelete='CASCADE'), primary_key=True),
+                                 ForeignKey('places.id'), nullable=False, primary_key=True),
                           Column('amenity_id', String(60),
-                                 ForeignKey('amenities.id', onupdate='CASCADE',
-                                            ondelete='CASCADE'),
-                                 primary_key=True))'''
+                                 ForeignKey('amenities.id'), nullable=False,
+                                 primary_key=True))
 
 
 if models.storage_type == 'db':
@@ -34,9 +32,11 @@ if models.storage_type == 'db':
         longitude = Column(Float, nullable=True)
         # amenity_ids = Column()
         reviews = relationship("Review", backref="place")
-        # amenities = relationship("Amenity", secondary="place_amenity",
-                                 # backref="place_amenities",
+        #amenities = relationship("Amenity", secondary="place_amenity",
+                                 # back_populates="place_amenities",
                                  # viewonly=False)
+        amenities = relationship("Amenity", back_populates="place_amenities",
+                                 secondary=place_amenity, viewonly=False)
 
 else:
     class Place(BaseModel):
@@ -71,3 +71,8 @@ else:
                 if (value.place_id == self.id):
                     new_list.append(value)
             return new_list
+
+        @amenities.setter
+        def amenities(self, obj):
+            if obj.__clas__.__name__ == "Amenity":
+                self.amenity_ids.append(obj.id)
