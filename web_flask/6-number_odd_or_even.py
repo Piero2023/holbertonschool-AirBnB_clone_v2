@@ -13,7 +13,7 @@ def hello_HBNB():
 
 
 @app.route("/hbnb", strict_slashes=False)
-def hello_HBNB():
+def HBNB():
     """
     return message
     """
@@ -68,5 +68,5 @@ def number_odd_or_even(n):
     return render_template('6-number_odd_or_even.html', n=int(n))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
