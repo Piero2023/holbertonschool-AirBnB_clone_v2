@@ -12,7 +12,8 @@ if models.storage_type == 'db':
         """ State class """
         __tablename__ = "states"
         name = Column(String(128), nullable=False)
-        cities = relationship("City", backref="state", cascade="all, delete, delete-orphan")
+        cities = relationship("City", backref="state",
+                              cascade="all, delete, delete-orphan")
 else:
     class State(BaseModel):
         """ State class """
@@ -20,9 +21,13 @@ else:
 
         @property
         def cities(self):
-            new_list = []
+            from models import storage
+            objs = [x for x in storage.all().values()
+                    if type(x) == City and x.state_id == self.id]
+            return objs
+            '''new_list = []
             cities_all = models.storage.all(City)
             for value in cities_all.values():
                 if (value.state_id == self.id):
                     new_list.append(value)
-            return new_list
+            return new_list'''

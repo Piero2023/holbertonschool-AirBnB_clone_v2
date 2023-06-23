@@ -11,7 +11,8 @@ from models.state import State
 from models.review import Review
 from models.amenity import Amenity
 
-classes = {"State": State, "City": City, "User": User, "Place": Place, "Amenity": Amenity,
+classes = {"State": State, "City": City, "User": User, "Place":
+           Place, "Amenity": Amenity,
            "Review": Review}
 
 

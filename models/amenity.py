@@ -2,12 +2,13 @@
 """ State Module for HBNB project """
 from models import storage_type
 from models.base_model import BaseModel, Base
-from models.place import place_amenity
+#from models.place import place_amenity
 from sqlalchemy import Column, String, Table, ForeignKey
 from sqlalchemy.orm import relationship
 
 
 if storage_type == "db":
+    from models.place import place_amenity
     class Amenity(BaseModel, Base):
         """Amenity class"""
         __tablename__ = "amenities"
