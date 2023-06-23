@@ -1,35 +1,27 @@
 #!/usr/bin/python3
-"""
-Script to start flask web application
-"""
+"""Script to start flask web application"""
 from flask import Flask
 app = Flask(__name__)
 
 
 @app.route("/", strict_slashes=False)
-def hello_HBNB():
-    """
-    return Hello HBNB!
-    """
+def hello_world():
+    """Return messages"""
     return "Hello HBNB!"
 
 
 @app.route("/hbnb", strict_slashes=False)
-def HBNB():
-    """
-    return HBNB
-    """
+def hello_HBNB():
+    """Return messages"""
     return "HBNB"
 
 
 @app.route("/c/<text>", strict_slashes=False)
-def c_text(text):
-    """
-    return message
-    """
+def varible_text(text=""):
+    """Return messages"""
     text = text.replace("_", " ")
     return "C {}".format(text)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
